@@ -114,6 +114,7 @@ intersections <- macleish_layers %>%
 intersections_forest_streams <- macleish_layers %>%
   pluck("forests") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
+dr
 ```
 
 
