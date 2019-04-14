@@ -150,19 +150,9 @@ intersections_filtered <- intersections_forest_streams %>%
   #filter(Sheet1__Na == c("Red Oak-Hemlock Forest", "Sugar Maple Forest"))
 ```
 
-```{r}
-library(leaflet)
-library(magrittr)
-
-leaflet()%>%
-addTiles() %>%
-addPolylines(data = intersections, geometry = ~geometry)
+``` {r}
+intersections_filtered <- intersections_filtered %>% 
+  separate(col = geometry, into = c('Latitude', 'Longitude '), sep = '\\,')
 ```
-
-```{r}
-intersections1 <- intersections %>% 
-  extract("geometry", c('lat', 'lon'), '\\((.*), (.*)\\)', convert = TRUE) 
-```
-
 
 
