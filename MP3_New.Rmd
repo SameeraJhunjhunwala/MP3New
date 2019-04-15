@@ -1,8 +1,10 @@
 ---
-title: "MP3"
-author: "Sameera Jhunjhunwala"
-date: "4/14/2019"
-output: html_document
+title: "Rocks, Tree Stumps, and Branches, Oh My!"
+author: "Sameera Jhunjhunwala, Zoya Alam, Khulood Fahim"
+date: "4/15/2019"
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -17,7 +19,30 @@ library(sf)
 library(ggplot2)
 library(leaflet)
 library(dplyr)
+library(sp)
 ```
+
+Word count: `r wordcountaddin::word_count()`
+
+From our group repository [^1]
+
+
+After visiting the various trails at macleish field station, our group found that the facility currently lacks a ‘safety trail’ that is both handicapped accessible and child-friendly. Whilst walking on the trails we noticed and took pictures of the following trail safety hazards: rocks, branches, and tree stumps. **Based on our observations and findings, we designed a trail that aims to provide macleish with a safe trail that can be used by all visitors for biking and walking and, specifically, caters to any children as well as handicapped individuals**. 
+
+
+![*Branch*](http://oi68.tinypic.com/wrchv4.jpg)
+
+
+![*Rock*](http://oi66.tinypic.com/2ijb6d.jpg)
+
+![*Tree Stump*](http://oi64.tinypic.com/21l4cg6.jpg)
+
+
+Based on informal conversations with student interns from CEEDs, we found  out that the current trails at Macleish have very few visitors. Althugh Macleish has already invested a great amount of human capital as well as financial and technological resources into the creation of numerous trails, we believe that the lack of a 'safety trail' is inhibiting the facility from maximizing its customer  outreach. And, while this trail is an expensive investment, it is necessary and  will likely bring more visitors and ensure that the facility is inclusive and accessible to a wide range of demographics. 
+
+Our estimate is that this trail will take three months to build and will likely be constructed during the summer months of June, July, and August. We believe that student interns as well as local construction workers could assist in building the trail. 
+
+
 
 ```{r}
 #install.packages("lwgeom")
@@ -33,18 +58,6 @@ mac_forest <- macleish_layers %>%
   pluck("forests") %>% 
   mutate(computed_area = st_area(geometry)) %>% 
   arrange(desc(computed_area))
-
-```
-
-```{r}
-leaflet() %>% 
-  addTiles() %>% 
-  addPolygons(data = macleish_layers[["forests"]],
-               weight = 1, popup = ~Sheet1__Na) %>% 
-  addPolylines(data = forests_buffer) %>% 
-  addPolylines(data = pluck(macleish_layers, "streams"), 
-               weight = 1, color = "red") %>% 
-  addPolylines(data = stream_buffer)
 ```
 
 ```{r}
@@ -95,13 +108,17 @@ leaflet() %>%
   addPolylines(data = forests_buffer)
 ```
 
-
 ```{r}
-#FRIDAY 
-forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
-#streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
-#buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = macleish_layers[["forests"]],
+               weight = 1, popup = ~Sheet1__Na) %>% 
+  addPolylines(data = forests_buffer) %>% 
+  addPolylines(data = pluck(macleish_layers, "streams"), 
+               weight = 1, color = "red") %>% 
+  addPolylines(data = stream_buffer)
 ```
+
 
 
 ```{r}
@@ -116,15 +133,38 @@ intersections_forest_streams <- macleish_layers %>%
   st_intersection(pluck(macleish_layers ,"streams"))
 ```
 
+```{r}
+
+forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
+#streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
+#buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
+```
+
+
+```{r}
+my_points <- tribble(
+  ~point, ~lat, ~lon,
+  "A", -72.682988, 42.449998,
+  "B", -72.682533, 42.450209,
+  "C", -72.682420, 42.452236,
+  "D", -72.682426, 42.452888,
+  "E", -72.682950, 42.454380,
+  "F", -72.684968, 42.455187
+) 
+
+```
+
+```{r}
+my_sf <- my_points %>%
+  st_as_sf(coords = c("lat", "lon"))
+```
 
 ```{r}
 macleish_layers %>%
   leaflet() %>%
   addTiles() %>%
-  #addPolylines(data = macleish_layers[["trails"]], weight = 1, popup = ~name) %>%
   addPolygons(data = macleish_layers[["boundary"]], weight = 2, fillOpacity = 0.01) %>%
   addPolygons(data = macleish_layers[["forests"]], weight = 4, color = ~forest_pal, popup = ~Sheet1__Na) %>%
-  #addPolylines(data = macleish_layers[["streams"]], weight = 3, color = ~streams_col) %>%
   addPolylines(data = pluck(macleish_layers, "streams"), 
                weight = 2, color = "black") %>% 
   addPolygons(data = pluck(macleish_layers, "buildings"), 
@@ -133,22 +173,12 @@ macleish_layers %>%
                weight = 1, popup = ~Sheet1__Na) %>% 
   addPolylines(data = pluck(macleish_layers, "trails"), 
                weight = 1, color = ~color) %>% 
+  addPolylines(data = my_points, lat = ~lon, lng = ~lat) %>%  
   #addMarkers(data = st_cast(intersections, "POINT"), popup = ~name ) %>% 
-  addMarkers(data = st_cast(intersections_filtered, "POINT"), popup = ~Sheet1__Na) %>% 
-
-  #addMarkers(data =my_sf, popup = ~geometry) %>% 
-  #addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>% 
-  addPolygons(data = macleish_layers[["research"]], weight = 1)
-  #addPolygons(data = macleish_layers[["landmarks"]], weight = 1, popup = ~Label)
+  addMarkers(data = my_sf, popup = ~point) %>% 
+  addPolygons(data = macleish_layers[["research"]], weight = 1) 
 ```
 
-```{r}
-intersections_filtered <- intersections_forest_streams %>% 
-  filter(Id == "3")
-  
-  
-  #filter(Sheet1__Na == c("Red Oak-Hemlock Forest", "Sugar Maple Forest"))
-```
 
 ``` {r}
 intersections_filtered <- intersections_filtered %>% 
