@@ -11,6 +11,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+
+
+
 ```{r}
 library(macleish)
 library(tidyverse)
@@ -21,6 +24,13 @@ library(leaflet)
 library(dplyr)
 library(sp)
 ```
+
+
+```{r}
+macleish_layers[["forests"]]
+```
+
+
 
 Word count: `r wordcountaddin::word_count()`
 
@@ -125,8 +135,6 @@ leaflet() %>%
   addPolylines(data = stream_buffer)
 ```
 
-
-
 ```{r}
 intersections <- macleish_layers %>%
   pluck("trails") %>%
@@ -156,8 +164,7 @@ my_points <- tribble(
   "D", -72.682426, 42.452888,
   "E", -72.682950, 42.454380,
   "F", -72.684968, 42.455187
-) 
-
+)  
 ```
 
 ```{r}
