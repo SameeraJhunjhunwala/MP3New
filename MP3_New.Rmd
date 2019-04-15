@@ -34,7 +34,6 @@ mac_forest <- macleish_layers %>%
   pluck("forests") %>% 
   mutate(computed_area = st_area(geometry)) %>% 
   arrange(desc(computed_area))
-
 ```
 
 ```{r}
