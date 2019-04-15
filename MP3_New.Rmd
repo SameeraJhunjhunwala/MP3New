@@ -96,15 +96,6 @@ leaflet() %>%
   addPolylines(data = forests_buffer)
 ```
 
-
-```{r}
-#FRIDAY 
-#forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
-#streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
-#buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
-```
-
-
 ```{r}
 intersections <- macleish_layers %>%
   pluck("trails") %>%
@@ -140,10 +131,8 @@ my_sf <- my_points %>%
 macleish_layers %>%
   leaflet() %>%
   addTiles() %>%
-  #addPolylines(data = macleish_layers[["trails"]], weight = 1, popup = ~name) %>%
   addPolygons(data = macleish_layers[["boundary"]], weight = 2, fillOpacity = 0.01) %>%
   addPolygons(data = macleish_layers[["forests"]], weight = 4, color = ~forest_pal, popup = ~Sheet1__Na) %>%
-  #addPolylines(data = macleish_layers[["streams"]], weight = 3, color = ~streams_col) %>%
   addPolylines(data = pluck(macleish_layers, "streams"), 
                weight = 2, color = "black") %>% 
   addPolygons(data = pluck(macleish_layers, "buildings"), 
@@ -154,29 +143,9 @@ macleish_layers %>%
                weight = 1, color = ~color) %>% 
   addPolylines(data = my_points, lat = ~lon, lng = ~lat) %>%  
   #addMarkers(data = st_cast(intersections, "POINT"), popup = ~name ) %>% 
-  #addMarkers(data = st_cast(intersections_filtered, "POINT"), popup = ~Sheet1__Na) %>% 
-  #addMarkers(data =my_sf, popup = ~geometry) %>% 
-  #addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>% 
   addMarkers(data = my_sf, popup = ~point) %>% 
-  addPolygons(data = macleish_layers[["research"]], weight = 1)
-  #addPolygons(data = macleish_layers[["landmarks"]], weight = 1, popup = ~Label)
+  addPolygons(data = macleish_layers[["research"]], weight = 1) 
 ```
-
-```{r}
-intersections_filtered <- intersections_forest_streams %>% 
-  filter(Id == "3")
-  
-  
-  #filter(Sheet1__Na == c("Red Oak-Hemlock Forest", "Sugar Maple Forest"))
-```
-
-```{r}
-leaflet() %>%
-  addTiles() %>%
-  addMarkers(data = my_sf, popup = ~point) %>% 
-  addPolylines(data = my_points, lat = ~lon, lng = ~lat) 
-```
-
 
 
 
