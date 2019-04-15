@@ -111,9 +111,11 @@ dr
 ```
 
 ```{r}
-![Alt text] (/Users/Zoya/Downloads/images/Branch Picture.jpg)
-```
 
+forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
+#streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
+#buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
+```
 
 ```{r}
 my_points <- tribble(
@@ -133,7 +135,6 @@ my_sf <- my_points %>%
 ```
 
 ```{r}
-# 
 macleish_layers %>%
   leaflet() %>%
   addTiles() %>%
