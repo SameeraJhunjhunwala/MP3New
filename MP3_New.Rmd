@@ -12,9 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-
-
-```{r}
+```{r include=FALSE, message=FALSE}
 library(macleish)
 library(tidyverse)
 library(tidycensus)
@@ -25,14 +23,6 @@ library(dplyr)
 library(sp)
 ```
 
-
-```{r}
-macleish_layers[["forests"]]
-```
-
-
-
-Word count: `r wordcountaddin::word_count()`
 
 From our group repository [^1]
 
@@ -53,20 +43,34 @@ Based on informal conversations with student interns from CEEDs, we found out th
 
 Cost breakdown: 
 
-Student and Construction labor: 
+Student labor: $12/hour, total  cost for a 12-week internship:
 Cost of materials: 
 
 Our estimate is that this trail will take three months to build and will likely be constructed during the summer months of June, July, and August. We believe that student interns as well as local construction workers could assist in building the trail. 
 
+We recognize that there are certain roadblocks that may create challenges to the construction of this trail. While connecting the trail to existing paths minimizes cost, we are proposing additions that will cost more than average. The most important of these additions is a boardwalk to facilitate wheelchair access and minimize safety hazards for children. Below is an example of a boardwalk trail: 
+
+! [Source: Only In Your State] (https://cdn.onlyinyourstate.com/wp-content/uploads/2018/04/2-48.jpg)
+
+Boardwalk trails are common, and the description of a boardwalk trail in Webster, Texas states that it is “A family and dog friendly trail, good for all skill levels and abilities.” A family friendly and accessible trail is precisely what we are aiming for. A boardwalk trail would also help children identify the limits of the trail. Additionally, we propose the construction of railings in some areas, perhaps in those with a higher tree density, are higher in elevation, or are closer to the yellow trail (which features the vernal pool) to further increase safety. These changes will add to the overall cost of the trail, and will increase the time it will take to build it. Student workers will also likely need to use tools and materials that require training and safety precautions. However, we reiterate our belief that the effort will result in a trail that accommodates a wide range of individuals and increases visits to the field station.
+
+The following video further details the process and an example of the cost breakdown of a boardwalk trail: 
+
+All materials we are proposing are materials that have already been used at the station and in the construction of the trails. Evidently, constructing a trail will mean clearing out the path of trees, bushes, and rocks, the absence of which has a negative impact environmentally. Wooden planks are already used above streams, so the difference here would be the amount used. The planks may inhibit the growth of larger plants underneath, but considering the lack of growth in other trails, this is unlikely. Overall, we expect that the impact of this trail will be similar to that of other trails on the property. 
+
+We now propose that Smith take these findings into consideration to help make the trails accessible to those with disabilities and family friendly. Students, faculty, staff, and their families will be able to enjoy the unique benefits of Smith’s ownership of this property. 
+
+Word count: `r wordcountaddin::word_count()`
 
 
-```{r}
+
+```{r include=FALSE}
 #install.packages("lwgeom")
 macleish_layers %>% 
   pluck("trails")
 ```
 
-```{r}
+```{r include=FALSE}
 boundaries_aea <- macleish_layers %>% 
   pluck("boundary")
 
@@ -76,7 +80,7 @@ mac_forest <- macleish_layers %>%
   arrange(desc(computed_area))
 ```
 
-```{r}
+```{r include=FALSE}
 stream_buffer <- macleish_layers %>% 
   pluck("streams") %>%
   st_transform(4326)
@@ -88,7 +92,7 @@ leaflet() %>%
   addPolylines(data = stream_buffer)
 ```
 
-```{r}
+```{r include=FALSE}
 buildings_buffer <- macleish_layers %>% 
   pluck("buildings") %>%
   st_transform(4326)
@@ -100,7 +104,7 @@ leaflet() %>%
   addPolylines(data = buildings_buffer)
 ```
 
-```{r}
+```{r include=FALSE}
 trails_buffer <- macleish_layers %>% 
   pluck("trails") %>%
   st_transform(4326)
@@ -112,7 +116,7 @@ leaflet() %>%
   addPolylines(data = trails_buffer)
 ```
 
-```{r}
+```{r include=FALSE}
 forests_buffer <- macleish_layers %>% 
   pluck("forests") %>%
   st_transform(4326)
@@ -124,7 +128,7 @@ leaflet() %>%
   addPolylines(data = forests_buffer)
 ```
 
-```{r}
+```{r include=FALSE}
 leaflet() %>% 
   addTiles() %>% 
   addPolygons(data = macleish_layers[["forests"]],
@@ -135,48 +139,43 @@ leaflet() %>%
   addPolylines(data = stream_buffer)
 ```
 
-```{r}
+```{r include=FALSE}
 intersections <- macleish_layers %>%
   pluck("trails") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
 ```
 
-```{r}
+```{r include=FALSE}
 intersections_forest_streams <- macleish_layers %>%
   pluck("forests") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
 ```
 
-```{r}
+```{r include=FALSE}
 forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 #streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
 #buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
 ```
 
-
-```{r}
+```{r echo=FALSE}
 my_points <- tribble(
   ~point, ~lat, ~lon,
-  "A", -72.682758, 42.449998,
+  "A", -72.680913, 42.448479,
   "B", -72.682533, 42.450209,
-  "C", -72.682420, 42.452236,
-  "D", -72.682426, 42.452888,
-  "E", -72.682950, 42.454380,
-  "F", -72.684968, 42.455187
-)  
+  "C", -72.683059, 42.452236,
+  "D", -72.683449, 42.452500,
+  "E", -72.686714,42.455146,
+  "G", -72.683869, 42.455891,
+  "F", -72.681471, 42.455891
+) 
 ```
 
-```{r}
-st_crs()
-```
-
-
-```{r}
+```{r echo=FALSE}
 my_sf <- my_points %>%
   st_as_sf(coords = c("lat", "lon"))
 ```
 
-```{r}
+```{r echo=FALSE}
 macleish_layers %>%
   leaflet() %>%
   addTiles() %>%
@@ -185,7 +184,7 @@ macleish_layers %>%
   addPolylines(data = pluck(macleish_layers, "streams"), 
                weight = 2, color = "black") %>% 
   addPolygons(data = pluck(macleish_layers, "buildings"), 
-               weight = 2, color = "dark red") %>% 
+              weight = 2, color = "dark red") %>% 
   addPolylines(data = macleish_layers[["forests"]],
                weight = 1, popup = ~Sheet1__Na) %>% 
   addPolylines(data = pluck(macleish_layers, "trails"), 
@@ -193,8 +192,29 @@ macleish_layers %>%
   addPolylines(data = my_points, lat = ~lon, lng = ~lat) %>%  
   #addMarkers(data = st_cast(intersections, "POINT"), popup = ~name ) %>% 
   addMarkers(data = my_sf, popup = ~point) %>% 
-  addPolygons(data = macleish_layers[["research"]], weight = 1) 
+  addPolygons(data = macleish_layers[["research"]], weight = 1)
 ```
+
+```{r echo=FALSE}
+my_sf %>%
+  st_distance()
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
