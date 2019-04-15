@@ -26,7 +26,6 @@ Word count: `r wordcountaddin::word_count()`
 
 From our group repository [^1]
 
-
 After visiting the various trails at Macleish field station, our group found that the facility currently lacks a ‘safety trail’ that is both handicapped accessible and child-friendly. Whilst walking on the trails we noticed and took pictures of the following trail safety hazards: rocks, branches, and tree stumps. **Based on our observations and findings, we designed a trail that aims to provide macleish with a safe trail that can be used by all visitors for biking and walking and, specifically, caters to any children as well as handicapped individuals**. 
 
 
@@ -38,7 +37,7 @@ After visiting the various trails at Macleish field station, our group found tha
 
 ![*Tree Stump*](http://oi64.tinypic.com/21l4cg6.jpg)
 
-We designed the trail to be in, based on our opinion, the more scenic area of the field station. And, this trail intersects with the White Loop and the Porcupine Trail. This allows us to  minimize construction cost and also allows visitors to easily access neighboring trails. Additionally, the  trail runs parallel to  a stream and also passes  the Sugar Maple Forest, Red  Oak-Hemlock Forest, and Hemlock  Forest. This gives  visitors  the opportunity to see a wide  range of biodiversity
+We designed the trail to be in, based on our opinion, the more scenic area of the field station. And, this trail intersects with the White Loop and the Porcupine Trail. This allows us to  minimize construction cost and also allows visitors to easily access neighboring trails. Additionally, the  trail runs parallel to  a stream and also passes  the Sugar Maple Forest, Red  Oak-Hemlock Forest, and Hemlock  Forest. This gives  visitors  the opportunity to see a wide  range of biodiversity. 
 
 Based on informal conversations with student interns from CEEDs, we found out that the current trails at Macleish have very few visitors. Althugh Macleish has already invested a great amount of human capital as well as financial and technological resources into the creation of numerous trails, we believe that the lack of a 'safety trail' is inhibiting the facility from maximizing its customer outreach. And, while this trail is an expensive investment, it is necessary and  will likely bring more visitors and ensure that the facility is inclusive and accessible to a wide range of demographics. 
 
@@ -187,9 +186,5 @@ macleish_layers %>%
 ```
 
 
-``` {r}
-intersections_filtered <- intersections_filtered %>% 
-  separate(col = geometry, into = c('Latitude', 'Longitude '), sep = '\\,')
-```
 
 
