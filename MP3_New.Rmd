@@ -2,7 +2,9 @@
 title: "MP3"
 author: "Sameera Jhunjhunwala, Zoya Alam, Khulood Fahim"
 date: "4/14/2019"
-output: html_document
+output: 
+  html_document:
+    code_folding: hide
 ---
 
 ```{r setup, include=FALSE}
@@ -19,6 +21,10 @@ library(leaflet)
 library(dplyr)
 library(sp)
 ```
+
+Word count: `r wordcountaddin::word_count()`
+
+From our group repository [^1]
 
 ```{r}
 #install.packages("lwgeom")
@@ -107,7 +113,6 @@ intersections <- macleish_layers %>%
 intersections_forest_streams <- macleish_layers %>%
   pluck("forests") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
-dr
 ```
 
 ```{r}
@@ -116,6 +121,7 @@ forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 #streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
 #buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
 ```
+
 
 ```{r}
 my_points <- tribble(
@@ -153,6 +159,16 @@ macleish_layers %>%
   addMarkers(data = my_sf, popup = ~point) %>% 
   addPolygons(data = macleish_layers[["research"]], weight = 1) 
 ```
+
+[^1]: https://github.com/SameeraJhunjhunwala/MP3New
+
+![macleish](https://www.icloud.com/photos/#0N2d_fYujnRg9sMX9supBMuRw)
+
+
+
+
+
+
 
 
 
