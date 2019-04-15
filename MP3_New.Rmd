@@ -1,6 +1,6 @@
 ---
 title: "MP3"
-author: "Sameera Jhunjhunwala"
+author: "Sameera Jhunjhunwala, Zoya Alam, Khulood Fahim"
 date: "4/14/2019"
 output: html_document
 ---
@@ -155,19 +155,6 @@ intersections_filtered <- intersections_forest_streams %>%
   #filter(Sheet1__Na == c("Red Oak-Hemlock Forest", "Sugar Maple Forest"))
 ```
 
-```{r}
-library(leaflet)
-library(magrittr)
-
-leaflet()%>%
-addTiles() %>%
-addPolylines(data = intersections, geometry = ~geometry)
-```
-
-```{r}
-intersections1 <- intersections %>% 
-  extract("geometry", c('lat', 'lon'), '\\((.*), (.*)\\)', convert = TRUE) 
-```
 
 
 
