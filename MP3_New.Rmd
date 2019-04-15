@@ -17,6 +17,7 @@ library(sf)
 library(ggplot2)
 library(leaflet)
 library(dplyr)
+library(sp)
 ```
 
 ```{r}
@@ -98,7 +99,7 @@ leaflet() %>%
 
 ```{r}
 #FRIDAY 
-forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
+#forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 #streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
 #buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
 ```
@@ -118,6 +119,24 @@ intersections_forest_streams <- macleish_layers %>%
 
 
 ```{r}
+my_points <- tribble(
+  ~point, ~lat, ~lon,
+  "A", -72.682988, 42.449998,
+  "B", -72.682533, 42.450209,
+  "C", -72.682420, 42.452236,
+  "D", -72.682426, 42.452888,
+  "E", -72.682950, 42.454380,
+  "F", -72.684968, 42.455187
+)
+```
+
+```{r}
+my_sf <- my_points %>%
+  st_as_sf(coords = c("lat", "lon"))
+```
+
+```{r}
+# 
 macleish_layers %>%
   leaflet() %>%
   addTiles() %>%
@@ -133,11 +152,12 @@ macleish_layers %>%
                weight = 1, popup = ~Sheet1__Na) %>% 
   addPolylines(data = pluck(macleish_layers, "trails"), 
                weight = 1, color = ~color) %>% 
+  addPolylines(data = my_points, lat = ~lon, lng = ~lat) %>%  
   #addMarkers(data = st_cast(intersections, "POINT"), popup = ~name ) %>% 
-  addMarkers(data = st_cast(intersections_filtered, "POINT"), popup = ~Sheet1__Na) %>% 
-
+  #addMarkers(data = st_cast(intersections_filtered, "POINT"), popup = ~Sheet1__Na) %>% 
   #addMarkers(data =my_sf, popup = ~geometry) %>% 
   #addPolygons(data = macleish_layers[["buildings"]], weight = 1, popup = ~name) %>% 
+  addMarkers(data = my_sf, popup = ~point) %>% 
   addPolygons(data = macleish_layers[["research"]], weight = 1)
   #addPolygons(data = macleish_layers[["landmarks"]], weight = 1, popup = ~Label)
 ```
@@ -148,6 +168,13 @@ intersections_filtered <- intersections_forest_streams %>%
   
   
   #filter(Sheet1__Na == c("Red Oak-Hemlock Forest", "Sugar Maple Forest"))
+```
+
+```{r}
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(data = my_sf, popup = ~point) %>% 
+  addPolylines(data = my_points, lat = ~lon, lng = ~lat) 
 ```
 
 
