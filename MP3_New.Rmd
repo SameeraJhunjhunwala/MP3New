@@ -37,17 +37,6 @@ mac_forest <- macleish_layers %>%
 ```
 
 ```{r}
-leaflet() %>% 
-  addTiles() %>% 
-  addPolygons(data = macleish_layers[["forests"]],
-               weight = 1, popup = ~Sheet1__Na) %>% 
-  addPolylines(data = forests_buffer) %>% 
-  addPolylines(data = pluck(macleish_layers, "streams"), 
-               weight = 1, color = "red") %>% 
-  addPolylines(data = stream_buffer)
-```
-
-```{r}
 stream_buffer <- macleish_layers %>% 
   pluck("streams") %>%
   st_transform(4326)
@@ -94,6 +83,19 @@ leaflet() %>%
                weight = 1, color = "black") %>% 
   addPolylines(data = forests_buffer)
 ```
+
+```{r}
+leaflet() %>% 
+  addTiles() %>% 
+  addPolygons(data = macleish_layers[["forests"]],
+               weight = 1, popup = ~Sheet1__Na) %>% 
+  addPolylines(data = forests_buffer) %>% 
+  addPolylines(data = pluck(macleish_layers, "streams"), 
+               weight = 1, color = "red") %>% 
+  addPolylines(data = stream_buffer)
+```
+
+
 
 ```{r}
 intersections <- macleish_layers %>%
