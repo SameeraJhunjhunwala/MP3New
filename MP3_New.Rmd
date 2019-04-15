@@ -95,8 +95,6 @@ leaflet() %>%
   addPolylines(data = stream_buffer)
 ```
 
-
-
 ```{r}
 intersections <- macleish_layers %>%
   pluck("trails") %>%
@@ -107,11 +105,9 @@ intersections <- macleish_layers %>%
 intersections_forest_streams <- macleish_layers %>%
   pluck("forests") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
-dr
 ```
 
 ```{r}
-
 forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 #streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
 #buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
@@ -128,6 +124,11 @@ my_points <- tribble(
   "F", -72.684968, 42.455187
 )
 ```
+
+```{r}
+st_crs()
+```
+
 
 ```{r}
 my_sf <- my_points %>%
