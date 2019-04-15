@@ -187,10 +187,9 @@ macleish_layers %>%
 ```
 
 
-
-[^1]: https://github.com/SameeraJhunjhunwala/MP3New
-
-
-
+``` {r}
+intersections_filtered <- intersections_filtered %>% 
+  separate(col = geometry, into = c('Latitude', 'Longitude '), sep = '\\,')
+```
 
 
