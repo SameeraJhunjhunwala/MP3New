@@ -117,6 +117,10 @@ intersections_forest_streams <- macleish_layers %>%
 dr
 ```
 
+```{r}
+![Alt text] (/Users/Zoya/Downloads/images/Branch Picture.jpg)
+```
+
 
 ```{r}
 macleish_layers %>%
