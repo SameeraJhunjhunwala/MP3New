@@ -63,7 +63,6 @@ We now propose that Smith take these findings into consideration to help make th
 Word count: `r wordcountaddin::word_count()`
 
 
-
 ```{r include=FALSE}
 #install.packages("lwgeom")
 macleish_layers %>% 
@@ -158,6 +157,8 @@ forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 ```
 
 ```{r echo=FALSE}
+# Figure out what points to put for our trail
+
 my_points <- tribble(
   ~point, ~lat, ~lon,
   "A", -72.680913, 42.448479,
@@ -171,11 +172,13 @@ my_points <- tribble(
 ```
 
 ```{r echo=FALSE}
+#  convert trail points to sf object
 my_sf <- my_points %>%
   st_as_sf(coords = c("lat", "lon"))
 ```
 
 ```{r echo=FALSE}
+# produce graphic with all  relevant information as well as designed trail
 macleish_layers %>%
   leaflet() %>%
   addTiles() %>%
@@ -196,6 +199,7 @@ macleish_layers %>%
 ```
 
 ```{r echo=FALSE}
+# calculate distance between  points by adding values in matrix
 my_sf %>%
   st_distance()
 ```
