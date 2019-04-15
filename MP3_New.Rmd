@@ -26,7 +26,7 @@ Word count: `r wordcountaddin::word_count()`
 
 From our group repository [^1]
 
-After visiting the various trails at Macleish field station, our group found that the facility currently lacks a ‘safety trail’ that is both handicapped accessible and child-friendly. Whilst walking on the trails we noticed and took pictures of the numerous trail safety hazards: rocks, branches, and tree stumps. This led our group to craft the following problem statement: how can we  create a trail that takes advantage of the station's resources and is safe for visitors? **Based on our observations and findings, we designed a trail that aims to provide macleish with a safe trail that can be used by all visitors for biking and walking and, specifically, caters to any children as well as handicapped individuals**. 
+After visiting the various trails at Macleish field station, our group found that the facility currently lacks a ‘safety trail’ that is both handicapped accessible and child-friendly. Whilst walking on the trails we noticed and took pictures of the numerous trail safety hazards: rocks, branches, and tree stumps. This led our group to craft the following problem statement: how can we create a trail that takes advantage of the station's resources and is safe for visitors? **Based on our observations and findings, we designed a trail that aims to provide macleish with a safe trail that can be used by all visitors for biking and walking and, specifically, caters to any children as well as handicapped individuals**. 
 
 
 
@@ -150,7 +150,7 @@ forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 ```{r}
 my_points <- tribble(
   ~point, ~lat, ~lon,
-  "A", -72.682988, 42.449998,
+  "A", -72.682758, 42.449998,
   "B", -72.682533, 42.450209,
   "C", -72.682420, 42.452236,
   "D", -72.682426, 42.452888,
