@@ -26,7 +26,7 @@ Word count: `r wordcountaddin::word_count()`
 
 From our group repository [^1]
 
-After visiting the various trails at Macleish field station, our group found that the facility currently lacks a ‘safety trail’ that is both handicapped accessible and child-friendly. Whilst walking on the trails we noticed and took pictures of the following trail safety hazards: rocks, branches, and tree stumps. **Based on our observations and findings, we designed a trail that aims to provide macleish with a safe trail that can be used by all visitors for biking and walking and, specifically, caters to any children as well as handicapped individuals**. 
+After visiting the various trails at Macleish field station, our group found that the facility currently lacks a ‘safety trail’ that is both handicapped accessible and child-friendly. Whilst walking on the trails we noticed and took pictures of the numerous trail safety hazards: rocks, branches, and tree stumps. This led our group to craft the following problem statement: how can we  create a trail that takes advantage of the station's resources and is safe for visitors? **Based on our observations and findings, we designed a trail that aims to provide macleish with a safe trail that can be used by all visitors for biking and walking and, specifically, caters to any children as well as handicapped individuals**. 
 
 
 
