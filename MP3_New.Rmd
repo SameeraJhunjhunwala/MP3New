@@ -21,8 +21,10 @@ library(ggplot2)
 library(leaflet)
 library(dplyr)
 library(sp)
+library(wordcountaddin)
 ```
 
+Word count: `r wordcountaddin::word_count()`
 
 From our group repository [^1]
 
@@ -49,18 +51,19 @@ Cost of materials:
 Our estimate is that this trail will take three months to build and will likely be constructed during the summer months of June, July, and August. We believe that student interns as well as local construction workers could assist in building the trail. 
 
 We recognize that there are certain roadblocks that may create challenges to the construction of this trail. While connecting the trail to existing paths minimizes cost, we are proposing additions that will cost more than average. The most important of these additions is a boardwalk to facilitate wheelchair access and minimize safety hazards for children. Below is an example of a boardwalk trail: 
-
-! [Source: Only In Your State] (https://cdn.onlyinyourstate.com/wp-content/uploads/2018/04/2-48.jpg)
-
-Boardwalk trails are common, and the description of a boardwalk trail in Webster, Texas states that it is “A family and dog friendly trail, good for all skill levels and abilities.” A family friendly and accessible trail is precisely what we are aiming for. A boardwalk trail would also help children identify the limits of the trail. Additionally, we propose the construction of railings in some areas, perhaps in those with a higher tree density, are higher in elevation, or are closer to the yellow trail (which features the vernal pool) to further increase safety. These changes will add to the overall cost of the trail, and will increase the time it will take to build it. Student workers will also likely need to use tools and materials that require training and safety precautions. However, we reiterate our belief that the effort will result in a trail that accommodates a wide range of individuals and increases visits to the field station.
+These changes will add to the overall cost of the trail, and will increase the time it will take to build it. Student workers will also likely need to use tools and materials that require training and safety precautions. However, we reiterate our belief that the effort will result in a trail that accommodates a wide range of individuals and increases visits to the field station.
 
 The following video further details the process and an example of the cost breakdown of a boardwalk trail: 
+
+<iframe width="560" height="315" src="https://www.youtube.com/watch?time_continue=125&v=JZmeLLP61pE" frameborder="0" allowfullscreen></iframe>
 
 All materials we are proposing are materials that have already been used at the station and in the construction of the trails. Evidently, constructing a trail will mean clearing out the path of trees, bushes, and rocks, the absence of which has a negative impact environmentally. Wooden planks are already used above streams, so the difference here would be the amount used. The planks may inhibit the growth of larger plants underneath, but considering the lack of growth in other trails, this is unlikely. Overall, we expect that the impact of this trail will be similar to that of other trails on the property. 
 
 We now propose that Smith take these findings into consideration to help make the trails accessible to those with disabilities and family friendly. Students, faculty, staff, and their families will be able to enjoy the unique benefits of Smith’s ownership of this property. 
 
-Word count: `r wordcountaddin::word_count()`
+
+
+
 
 
 ```{r include=FALSE}
@@ -206,9 +209,7 @@ my_sf %>%
 
 
 
-
-
-
+[^1]: https://github.com/SameeraJhunjhunwala/MP3New
 
 
 
