@@ -12,7 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 
-```{r include=FALSE, message=FALSE}
+```{r include=FALSE}
 library(macleish)
 library(tidyverse)
 library(tidycensus)
@@ -53,17 +53,9 @@ Our estimate is that this trail will take three months to build and will likely 
 We recognize that there are certain roadblocks that may create challenges to the construction of this trail. While connecting the trail to existing paths minimizes cost, we are proposing additions that will cost more than average. The most important of these additions is a boardwalk to facilitate wheelchair access and minimize safety hazards for children. Below is an example of a boardwalk trail: 
 These changes will add to the overall cost of the trail, and will increase the time it will take to build it. Student workers will also likely need to use tools and materials that require training and safety precautions. However, we reiterate our belief that the effort will result in a trail that accommodates a wide range of individuals and increases visits to the field station.
 
-The following video further details the process and an example of the cost breakdown of a boardwalk trail: 
-
-<iframe width="560" height="315" src="https://www.youtube.com/watch?time_continue=125&v=JZmeLLP61pE" frameborder="0" allowfullscreen></iframe>
-
 All materials we are proposing are materials that have already been used at the station and in the construction of the trails. Evidently, constructing a trail will mean clearing out the path of trees, bushes, and rocks, the absence of which has a negative impact environmentally. Wooden planks are already used above streams, so the difference here would be the amount used. The planks may inhibit the growth of larger plants underneath, but considering the lack of growth in other trails, this is unlikely. Overall, we expect that the impact of this trail will be similar to that of other trails on the property. 
 
 We now propose that Smith take these findings into consideration to help make the trails accessible to those with disabilities and family friendly. Students, faculty, staff, and their families will be able to enjoy the unique benefits of Smith’s ownership of this property. 
-
-
-
-
 
 
 ```{r include=FALSE}
@@ -72,7 +64,7 @@ macleish_layers %>%
   pluck("trails")
 ```
 
-```{r include=FALSE}
+```{r}
 boundaries_aea <- macleish_layers %>% 
   pluck("boundary")
 
@@ -82,7 +74,7 @@ mac_forest <- macleish_layers %>%
   arrange(desc(computed_area))
 ```
 
-```{r include=FALSE}
+```{r}
 stream_buffer <- macleish_layers %>% 
   pluck("streams") %>%
   st_transform(4326)
@@ -94,7 +86,7 @@ leaflet() %>%
   addPolylines(data = stream_buffer)
 ```
 
-```{r include=FALSE}
+```{r}
 buildings_buffer <- macleish_layers %>% 
   pluck("buildings") %>%
   st_transform(4326)
@@ -106,7 +98,7 @@ leaflet() %>%
   addPolylines(data = buildings_buffer)
 ```
 
-```{r include=FALSE}
+```{r}
 trails_buffer <- macleish_layers %>% 
   pluck("trails") %>%
   st_transform(4326)
@@ -118,7 +110,7 @@ leaflet() %>%
   addPolylines(data = trails_buffer)
 ```
 
-```{r include=FALSE}
+```{r}
 forests_buffer <- macleish_layers %>% 
   pluck("forests") %>%
   st_transform(4326)
@@ -130,7 +122,7 @@ leaflet() %>%
   addPolylines(data = forests_buffer)
 ```
 
-```{r include=FALSE}
+```{r}
 leaflet() %>% 
   addTiles() %>% 
   addPolygons(data = macleish_layers[["forests"]],
@@ -141,25 +133,25 @@ leaflet() %>%
   addPolylines(data = stream_buffer)
 ```
 
-```{r include=FALSE}
+```{r}
 intersections <- macleish_layers %>%
   pluck("trails") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
 ```
 
-```{r include=FALSE}
+```{r}
 intersections_forest_streams <- macleish_layers %>%
   pluck("forests") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
 ```
 
-```{r include=FALSE}
+```{r}
 forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 #streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
 #buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
 ```
 
-```{r echo=FALSE}
+```{r}
 # Figure out what points to put for our trail
 
 my_points <- tribble(
@@ -174,13 +166,13 @@ my_points <- tribble(
 ) 
 ```
 
-```{r echo=FALSE}
+```{r}
 #  convert trail points to sf object
 my_sf <- my_points %>%
   st_as_sf(coords = c("lat", "lon"))
 ```
 
-```{r echo=FALSE}
+```{r}
 # produce graphic with all  relevant information as well as designed trail
 macleish_layers %>%
   leaflet() %>%
@@ -201,11 +193,15 @@ macleish_layers %>%
   addPolygons(data = macleish_layers[["research"]], weight = 1)
 ```
 
-```{r echo=FALSE}
+```{r}
 # calculate distance between  points by adding values in matrix
 my_sf %>%
   st_distance()
 ```
+
+Calculations:  0.002370084+ 0.002094136+ 0.0004709522 + .0042025636+
+              0.002940927+ 0.002398000= 0.0144766628 *69.2= 1.00178506576 miles
+              
 
 
 
