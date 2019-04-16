@@ -31,7 +31,6 @@ From our group repository [^1]
 After visiting the various trails at Macleish field station, our group found that the facility currently lacks a ‘safety trail’ that is both handicapped accessible and child-friendly. Whilst walking on the trails we noticed and took pictures of the numerous trail safety hazards: rocks, branches, and tree stumps. This led our group to craft the following problem statement: how can we create a trail that takes advantage of the station's resources and is safe for visitors? **Based on our observations and findings, we designed a trail that aims to provide macleish with a safe trail that can be used by all visitors for biking and walking and, specifically, caters to any children as well as handicapped individuals**. 
 
 
-
 ![*Branch*](http://oi68.tinypic.com/wrchv4.jpg)
 
 
@@ -39,18 +38,27 @@ After visiting the various trails at Macleish field station, our group found tha
 
 ![*Tree Stump*](http://oi64.tinypic.com/21l4cg6.jpg)
 
-We designed the trail to be in, based on our opinion, the more scenic area of the field station. And, this trail intersects with the White Loop and the Porcupine Trail. This allows us to  minimize construction cost and also allows visitors to easily access neighboring trails. Additionally, the  trail runs parallel to  a stream and also passes  the Sugar Maple Forest, Red  Oak-Hemlock Forest, and Hemlock  Forest. This gives  visitors  the opportunity to see a wide  range of biodiversity. 
+We designed the trail to be in, based on our opinion, the more scenic area of the field station. And, this trail intersects with the White Loop and the Porcupine Trail. This allows us to  minimize construction cost and also allows visitors to easily access neighboring trails. Additionally, the  trail runs parallel to  a stream and also passes  through the Sugar Maple Forest, Red  Oak-Hemlock Forest, and Hemlock  Forest. This gives  visitors  the opportunity to see a wide  range of biodiversity. 
 
-Based on informal conversations with student interns from CEEDs, we found out that the current trails at Macleish have very few visitors. Althugh Macleish has already invested a great amount of human capital as well as financial and technological resources into the creation of numerous trails, we believe that the lack of a 'safety trail' is inhibiting the facility from maximizing its customer outreach. And, while this trail is an expensive investment, it is necessary and  will likely bring more visitors and ensure that the facility is inclusive and accessible to a wide range of demographics. 
+Based on informal conversations with student interns from CEEDs, we found out that the current trails at Macleish have very few visitors. Althugh Macleish has already invested a great amount of human capital as well as financial and technological resources into the creation of numerous trails, we believe that the lack of a 'safety trail' is inhibiting the facility from maximizing its customer outreach. And, while this trail is an expensive investment, it is necessary and  will likely bring more visitors and ensure that the facility is inclusive and accessible to a wide range of demographics. The cost of this trail can vary from $82,450  to $84,900 and the breakdown of expenses for this trail can  be seen below.
 
-Cost breakdown: 
+**Cost breakdown:**
 
-Student labor: $12/hour, total  cost for a 12-week internship:
-Cost of materials: 
+Student labor ($15/hour, 35 hours a week, 8-week internship): $8400
 
-Our estimate is that this trail will take three months to build and will likely be constructed during the summer months of June, July, and August. We believe that student interns as well as local construction workers could assist in building the trail. 
+Professional construction workers cost ($25-$50/hour for 21-35 hours, 2 workers): $1050-$3500
 
-We recognize that there are certain roadblocks that may create challenges to the construction of this trail. While connecting the trail to existing paths minimizes cost, we are proposing additions that will cost more than average. The most important of these additions is a boardwalk to facilitate wheelchair access and minimize safety hazards for children. Below is an example of a boardwalk trail: 
+Cost of materials: $73,000 [^2]
+
+Our estimate is that this trail will take three months to plan and build and will likely be constructed during the summer months of June, July, and August. We believe that two student interns could  as well as local construction workers could assist in implementing the boardwalk.
+
+We recognize that there are certain roadblocks that may create challenges to the construction of this trail. While connecting the trail to existing paths minimizes cost, we are proposing additions that will cost more than average. The most important of these additions is a boardwalk to facilitate wheelchair access and minimize safety hazards for children. 
+Below is an example of a boardwalk trail in Litchfield, CT  [^2]: 
+
+![*Boardwalk*](http://i63.tinypic.com/2v8oocz.png)
+
+
+
 These changes will add to the overall cost of the trail, and will increase the time it will take to build it. Student workers will also likely need to use tools and materials that require training and safety precautions. However, we reiterate our belief that the effort will result in a trail that accommodates a wide range of individuals and increases visits to the field station.
 
 All materials we are proposing are materials that have already been used at the station and in the construction of the trails. Evidently, constructing a trail will mean clearing out the path of trees, bushes, and rocks, the absence of which has a negative impact environmentally. Wooden planks are already used above streams, so the difference here would be the amount used. The planks may inhibit the growth of larger plants underneath, but considering the lack of growth in other trails, this is unlikely. Overall, we expect that the impact of this trail will be similar to that of other trails on the property. 
@@ -64,7 +72,7 @@ macleish_layers %>%
   pluck("trails")
 ```
 
-```{r}
+```{r echo=TRUE, message=FALSE, warning=FALSE}
 boundaries_aea <- macleish_layers %>% 
   pluck("boundary")
 
@@ -72,86 +80,39 @@ mac_forest <- macleish_layers %>%
   pluck("forests") %>% 
   mutate(computed_area = st_area(geometry)) %>% 
   arrange(desc(computed_area))
-```
 
-```{r}
 stream_buffer <- macleish_layers %>% 
   pluck("streams") %>%
   st_transform(4326)
 
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = pluck(macleish_layers, "streams"), 
-               weight = 1, color = "black") %>% 
-  addPolylines(data = stream_buffer)
-```
 
-```{r}
 buildings_buffer <- macleish_layers %>% 
   pluck("buildings") %>%
   st_transform(4326)
 
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = pluck(macleish_layers, "buildings"), 
-               weight = 1, color = "brown") %>% 
-  addPolylines(data = buildings_buffer)
-```
 
-```{r}
 trails_buffer <- macleish_layers %>% 
   pluck("trails") %>%
   st_transform(4326)
 
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = pluck(macleish_layers, "trails"), 
-               weight = 1, label = ~name, color = ~color) %>% 
-  addPolylines(data = trails_buffer)
-```
 
-```{r}
 forests_buffer <- macleish_layers %>% 
   pluck("forests") %>%
   st_transform(4326)
 
-leaflet() %>% 
-  addTiles() %>% 
-  addPolylines(data = pluck(macleish_layers, "forests"), 
-               weight = 1, color = "black") %>% 
-  addPolylines(data = forests_buffer)
-```
 
-```{r}
-leaflet() %>% 
-  addTiles() %>% 
-  addPolygons(data = macleish_layers[["forests"]],
-               weight = 1, popup = ~Sheet1__Na) %>% 
-  addPolylines(data = forests_buffer) %>% 
-  addPolylines(data = pluck(macleish_layers, "streams"), 
-               weight = 1, color = "red") %>% 
-  addPolylines(data = stream_buffer)
-```
-
-```{r}
 intersections <- macleish_layers %>%
   pluck("trails") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
-```
 
-```{r}
 intersections_forest_streams <- macleish_layers %>%
   pluck("forests") %>%
   st_intersection(pluck(macleish_layers ,"streams"))
-```
 
-```{r}
 forest_pal <- colorFactor("Greens", macleish_layers[["forests"]]$Sheet1__Na)
 #streams_col <- colorFactor("Reds", macleish_layers[["streams"]]$Id) 
 #buildings_col <- colorFactor("Reds", macleish_layers[["buildings"]]$geometry)
-```
 
-```{r}
 # Figure out what points to put for our trail
 
 my_points <- tribble(
@@ -164,15 +125,11 @@ my_points <- tribble(
   "G", -72.683869, 42.455891,
   "F", -72.681471, 42.455891
 ) 
-```
 
-```{r}
 #  convert trail points to sf object
 my_sf <- my_points %>%
   st_as_sf(coords = c("lat", "lon"))
-```
 
-```{r}
 # produce graphic with all  relevant information as well as designed trail
 macleish_layers %>%
   leaflet() %>%
@@ -204,9 +161,8 @@ Calculations:  0.002370084+ 0.002094136+ 0.0004709522 + .0042025636+
               
 
 
-
 [^1]: https://github.com/SameeraJhunjhunwala/MP3New
-
+[^2]: "Little Pond Boardwalk, Litchfield, CT". https://www.youtube.com/watch?v=JZmeLLP61pE
 
 
 
