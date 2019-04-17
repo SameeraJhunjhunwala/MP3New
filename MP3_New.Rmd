@@ -81,6 +81,10 @@ macleish_layers %>%
 boundaries_aea <- macleish_layers %>% 
   pluck("boundary")
 
+mac_forest <- macleish_layers %>% 
+  pluck("forests") %>% 
+  mutate(computed_area = st_area(geometry)) %>% 
+  arrange(desc(computed_area))
 
 stream_buffer <- macleish_layers %>% 
   pluck("streams") %>%
@@ -122,9 +126,10 @@ my_points <- tribble(
   "B", -72.682533, 42.450209,
   "C", -72.683059, 42.452236,
   "D", -72.683449, 42.452500,
-  "E", -72.686714,42.455146,
+  "E", -72.684254, 42.452994, 
+  "F", -72.686714, 42.455146,
   "G", -72.683869, 42.455891,
-  "F", -72.681471, 42.455891
+  "H", -72.681471, 42.455891
 ) 
 
 #  convert trail points to sf object
