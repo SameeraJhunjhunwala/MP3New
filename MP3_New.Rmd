@@ -81,10 +81,6 @@ macleish_layers %>%
 boundaries_aea <- macleish_layers %>% 
   pluck("boundary")
 
-mac_forest <- macleish_layers %>% 
-  pluck("forests") %>% 
-  mutate(computed_area = st_area(geometry)) %>% 
-  arrange(desc(computed_area))
 
 stream_buffer <- macleish_layers %>% 
   pluck("streams") %>%
